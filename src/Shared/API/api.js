@@ -11,7 +11,7 @@ export const isLoggedInAPI = () => API.get('/isLoggedIn', {
     }
 })
 
-// export const logoutAPI = () =>
+
 
 export const signUp = (codeforcesHandle, email, password) => API.post('/signup', {
     codeforcesHandle,
@@ -23,5 +23,7 @@ export const LoginIn = (email, password) => API.post('/login', {
     email,
     password
 })
+
+
 
 export const editorials = () => API.get('/editorials')

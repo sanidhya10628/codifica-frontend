@@ -1,19 +1,17 @@
 import React, { useState, useContext } from 'react'
 
+import './Navbar.css'
 import { NavLink } from 'react-router-dom'
+
 import { SideDrawer } from './SideDrawer/SideDrawer'
 import { BackDrop } from './Backdrop/Backdrop'
-import { FaBars } from 'react-icons/fa'
-import './Navbar.css'
 
+
+import { FaBars } from 'react-icons/fa'
 
 
 export const Navbar = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false)
-    const [sidebarActiveClass, setSidebarActiveClass] = useState('')
-
-
-
 
     if (!isSideBarOpen) {
         return (
@@ -32,11 +30,11 @@ export const Navbar = () => {
             </div>
         )
     }
+
     return (
         <>
             <SideDrawer
                 isSideBarOpen={isSideBarOpen}
-                sidebarActiveClass={sidebarActiveClass}
                 setIsSideBarOpen={setIsSideBarOpen}
             />
             <BackDrop />

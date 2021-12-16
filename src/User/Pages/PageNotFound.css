@@ -1,0 +1,19 @@
+.pagenot-found {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 70px;
+  font-size: 26px;
+  flex-direction: column;
+}
+
+.link-to-home-page {
+  margin-top: 20px;
+  /* background-color: #1e1e27; */
+  background: #1a83ff;
+  color: white;
+  padding: 12px 24px;
+  font-size: 20px;
+  border-radius: 5px;
+  font-weight: 500;
+}

@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
@@ -6,7 +7,7 @@ import { WriteEditorial } from './Editorial/Pages/WriteEditorial'
 import { Navbar } from './Navigation/Navbar'
 import { EditorialList } from './Editorial/Pages/EditorialList';
 import { Editorial } from './Editorial/Pages/Editorial'
-
+import { PageNotFound } from './User/Pages/PageNotFound';
 import { Login } from './User/components/Login'
 import { SignUp } from './User/components/SignUp'
 import { ForgotPassword } from './User/components/ForgotPassword';
@@ -27,19 +28,12 @@ function App() {
           <Route path='/writeEditorial' element={<WriteEditorial />} />
           <Route path='/editorials' element={<EditorialList />} />
           <Route path='/editorial/:id' element={<Editorial />} />
+
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Router>
     </AuthContextProvider>
 
-    // <Router>
-    //   {/* <Toolbar /> */}
-    //   <SideDrawer />
-    //   <BackDrop />
-    //   <Routes>
-    //     <Route path='/' element={<Home />} />
-    //     <Route path='/login' element={<Login />} />
-    //   </Routes>
-    // </Router>
   );
 }
 

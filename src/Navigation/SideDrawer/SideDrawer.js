@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import './SideDrawer.css'
-import { FaBars, FaWindowClose } from 'react-icons/fa'
 
+import './SideDrawer.css'
+import { NavLink } from 'react-router-dom'
 
 import { NavLinks } from '../NavLinks/NavLinks'
 
-export const SideDrawer = ({ isSideBarOpen, sidebarActiveClass, setIsSideBarOpen }) => {
+import { FaBars, FaWindowClose } from 'react-icons/fa'
+
+
+
+export const SideDrawer = ({ isSideBarOpen, setIsSideBarOpen }) => {
 
 
 

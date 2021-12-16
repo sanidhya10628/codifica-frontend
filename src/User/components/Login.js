@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -20,13 +20,17 @@ import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom'
 
+
 const theme = createTheme();
 
 export const Login = () => {
+
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+
 
 
     const handleSubmit = async (event) => {
@@ -61,6 +65,8 @@ export const Login = () => {
             <Loading />
         )
     }
+
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
