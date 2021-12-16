@@ -28,6 +28,7 @@ const theme = createTheme();
 
 export const SignUp = () => {
 
+    const authData = useContext(AuthContext)
     const navigate = useNavigate();
 
 
@@ -35,24 +36,48 @@ export const SignUp = () => {
     const [password, setPassword] = useState('')
     const [codeforcesHandle, setCodeforcesHandle] = useState('')
 
-    // const { a } = useContext(AuthContext)
-    // console.log(a)
+    const isValidCFHandle = async () => {
+        const response = await fetch(`https://codeforces.com/api/user.info?handles=${codeforcesHandle}`)
+        const data = await response.json()
+        if (data['status'] === 'FAILED') {
+            alert('Handle does not exists')
+            return false
+        }
+        return true
+    }
+
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        if (email && password && codeforcesHandle) {
-            const { data } = await signUp(codeforcesHandle, email, password)
-            // const data = await response.json()
+        try {
+            event.preventDefault();
+            authData.setLoading(true)
+            const data = new FormData(event.currentTarget);
+            // eslint-disable-next-line no-console
+            const isValid = await isValidCFHandle()
+            if (email && password && codeforcesHandle && isValid) {
 
-            localStorage.setItem('token', `Bearer ${data.token}`)
-            // navigate to home page
+                const { data } = await signUp(codeforcesHandle, email, password)
+                if (data.status === 'OK') {
+                    localStorage.setItem('token', `Bearer ${data.token}`)
+                    authData.setEmail(email)
+                    authData.setCFHandle(codeforcesHandle)
+                    // navigate to home page
+                    authData.setIsLoading(false)
+                    authData.isLoggedIn(true)
+                    navigate('/', { replace: true })
+                } else if (data.status === 'ERROR') {
+                    const error = data.msg
+                    alert(error)
+                }
 
-            navigate('/', { replace: true, state: data.newUser })
+            } else {
+                // email password name can not be empty
+                // alert
 
-        } else {
-            // email password name can not be empty
-            // alert
+
+            }
+        } catch (e) {
+            // console.log(e);
+            alert('Something went wrong')
         }
     };
 

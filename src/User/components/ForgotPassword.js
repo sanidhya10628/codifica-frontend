@@ -17,35 +17,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import { Link } from 'react-router-dom'
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" to='/'>
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const theme = createTheme();
 
-export const Login = () => {
+export const ForgotPassword = () => {
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        if (email && password) {
+        if (email) {
             setEmail(data.get('email'))
-            setPassword(data.get('password'))
-
-
         }
 
         else {
@@ -69,10 +53,16 @@ export const Login = () => {
                         <LockIcon />
                     </Avatar> */}
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Forgot Password
+                    </Typography>
+                    <Typography variant='p' style={{
+                        marginTop: '10px'
+                    }}>
+                        To reset your password, submit your email address below. If we can find you in the database, an email will be sent to your email address, with instructions how to get access again.
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
+
                             margin="normal"
                             required
                             fullWidth
@@ -84,18 +74,7 @@ export const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+
 
                         <Button
                             type="submit"
@@ -103,20 +82,16 @@ export const Login = () => {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Forgot Password
                         </Button>
                         <Grid container>
-                            <Grid item xs>
-                                <Link to='/forgotPassword'>
-                                    Forgot password?
-                                </Link>
-                            </Grid>
+
                             <Grid item>
-                                Don't have an account?
-                                <Link to='/signUp' style={{
+                                Already have an account?
+                                <Link to='/login' style={{
                                     marginLeft: '3px'
                                 }}>
-                                    {"Sign Up"}
+                                    {"Sign In"}
                                 </Link>
                             </Grid>
                         </Grid>
@@ -126,5 +101,18 @@ export const Login = () => {
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
+    );
+}
+
+function Copyright(props) {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit" to='/'>
+                Your Website
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
     );
 }

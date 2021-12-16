@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { NavLink } from 'react-router-dom'
 import { SideDrawer } from './SideDrawer/SideDrawer'
@@ -6,9 +6,12 @@ import { BackDrop } from './Backdrop/Backdrop'
 import { FaBars } from 'react-icons/fa'
 import './Navbar.css'
 
+
+
 export const Navbar = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false)
     const [sidebarActiveClass, setSidebarActiveClass] = useState('')
+
 
 
 

@@ -18,3 +18,5 @@ export const signUp = (codeforcesHandle, email, password) => API.post('/signup',
     email,
     password
 })
+
+export const editorials = () => API.get('/editorials')

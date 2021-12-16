@@ -9,7 +9,7 @@ import { Editorial } from './Editorial/Pages/Editorial'
 
 import { Login } from './User/components/Login'
 import { SignUp } from './User/components/SignUp'
-
+import { ForgotPassword } from './User/components/ForgotPassword';
 import { AuthContextProvider } from './Shared/context/auth-context'
 
 
@@ -23,6 +23,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signUp' element={<SignUp />} />
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='/writeEditorial' element={<WriteEditorial />} />
           <Route path='/editorials' element={<EditorialList />} />
           <Route path='/editorial/:id' element={<Editorial />} />
