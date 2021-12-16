@@ -1,0 +1,71 @@
+.side-drawer header {
+  display: flex;
+  justify-content: space-between;
+}
+.faBars-icon,
+.side-drawer-logo {
+  /* background: white; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.side-drawer-logo-link {
+  color: white;
+  text-decoration: none;
+}
+
+.side-drawer {
+  height: 100%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70%;
+  max-width: 300px;
+  z-index: 200;
+  background: white;
+  color: white;
+  background-color: #060b26;
+  background-color: #232f3e;
+  transform: translateX(-100%);
+}
+.side-drawer.active {
+  transform: translateX(0);
+}
+
+.side-drawer-items {
+  /* background-color: aqua; */
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.side-drawer-items ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 10px;
+}
+
+.side-drawer-items ul li {
+  color: white;
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 2px;
+  font-size: 20px;
+}
+
+.side-drawer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.side-drawer-items ul li:hover,
+.side-drawer-items ul li:active {
+  background: #1a83ff;
+}

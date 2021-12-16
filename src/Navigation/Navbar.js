@@ -1,54 +1,42 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
+import { NavLink } from 'react-router-dom'
+import { SideDrawer } from './SideDrawer/SideDrawer'
+import { BackDrop } from './Backdrop/Backdrop'
+import { FaBars } from 'react-icons/fa'
 import './Navbar.css'
-import * as FaIcons from 'react-icons/fa'
-import * as AiIcons from 'react-icons/ai'
-import { IconContext } from 'react-icons'
-
-import { SidebarData } from './SidebarData'
 
 export const Navbar = () => {
-    const [sidebar, setSidebar] = useState(false)
+    const [isSideBarOpen, setIsSideBarOpen] = useState(false)
+    const [sidebarActiveClass, setSidebarActiveClass] = useState('')
 
-    const showSidebar = () => {
-        setSidebar(!sidebar)
+
+
+    if (!isSideBarOpen) {
+        return (
+            <div className='navbar'>
+                <div className='navbar-fabars-icon'>
+                    <FaBars style={{
+                        fontSize: '30px',
+                        cursor: 'pointer'
+                    }}
+                        onClick={() => setIsSideBarOpen(true)}
+                    />
+                </div>
+                <div className='navbar-logo'>
+                    <NavLink to='/' className='navabar-link'>Codifica</NavLink>
+                </div>
+            </div>
+        )
     }
     return (
         <>
-            <IconContext.Provider value={{ color: '#fff' }}>
-                <div className='navbar'>
-                    <Link to='/' className='menu-bars'>
-                        <FaIcons.FaBars onClick={showSidebar} />
-                    </Link>
-                </div>
-
-                <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-                    <ul className="nav-menu-items" onClick={showSidebar}>
-                        <li className="navbar-toggle">
-                            <Link className='menu-bars' to='#'>
-                                <AiIcons.AiFillCloseSquare>
-
-                                </AiIcons.AiFillCloseSquare>
-                            </Link>
-                        </li>
-                        {
-                            SidebarData.map((item, index) => {
-                                return (
-                                    <li key={index} className={item.cName}>
-                                        <Link to={item.path}>
-                                            {item.icon}
-                                            <span>
-                                                {item.title}
-                                            </span>
-                                        </Link>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                </nav>
-            </IconContext.Provider>
+            <SideDrawer
+                isSideBarOpen={isSideBarOpen}
+                sidebarActiveClass={sidebarActiveClass}
+                setIsSideBarOpen={setIsSideBarOpen}
+            />
+            <BackDrop />
         </>
     )
 }

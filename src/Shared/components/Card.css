@@ -1,0 +1,33 @@
+main {
+  margin: 70px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  /* display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px; */
+  border-radius: 5px;
+  border: 1px solid black;
+  /* background-color: aqua; */
+  /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.9); */
+}
+
+.card-image {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+}
+.card-text {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px;
+  padding: 1rem 2rem;
+}
+.problem-link a {
+  text-decoration: none;
+  color: black;
+}
