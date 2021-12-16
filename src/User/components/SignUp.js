@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import { signUp } from '../../Shared/API/api'
-
+import { Loading } from '../../Shared/components/Loading';
 
 import { AuthContext } from '../../Shared/context/auth-context'
 
@@ -27,7 +27,7 @@ import { AuthContext } from '../../Shared/context/auth-context'
 const theme = createTheme();
 
 export const SignUp = () => {
-
+    const [isLoading, setIsLoading] = useState(false)
     const authData = useContext(AuthContext)
     const navigate = useNavigate();
 
@@ -47,10 +47,11 @@ export const SignUp = () => {
     }
 
     const handleSubmit = async (event) => {
+        setIsLoading(true)
         try {
             event.preventDefault();
-            authData.setLoading(true)
-            const data = new FormData(event.currentTarget);
+
+            // const data = new FormData(event.currentTarget);
             // eslint-disable-next-line no-console
             const isValid = await isValidCFHandle()
             if (email && password && codeforcesHandle && isValid) {
@@ -61,8 +62,9 @@ export const SignUp = () => {
                     authData.setEmail(email)
                     authData.setCFHandle(codeforcesHandle)
                     // navigate to home page
-                    authData.setIsLoading(false)
-                    authData.isLoggedIn(true)
+
+                    authData.setIsLoggedIn(true)
+                    setIsLoading(false)
                     navigate('/', { replace: true })
                 } else if (data.status === 'ERROR') {
                     const error = data.msg
@@ -72,15 +74,24 @@ export const SignUp = () => {
             } else {
                 // email password name can not be empty
                 // alert
+                setIsLoading(false)
+
 
 
             }
         } catch (e) {
+            setIsLoading(false)
+
             // console.log(e);
             alert('Something went wrong')
         }
     };
 
+    if (isLoading) {
+        return (
+            <Loading />
+        )
+    }
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">

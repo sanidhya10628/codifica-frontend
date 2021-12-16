@@ -3,13 +3,8 @@ import '../components/EditorialList.css'
 import { Card } from '../../Shared/components/Card'
 
 import { editorials } from '../../Shared/API/api'
-import { SyncLoader } from 'react-spinners'
+import { Loading } from '../../Shared/components/Loading'
 
-const override = {
-    display: 'block',
-    margin: '70px auto',
-    borderColor: 'red'
-}
 
 
 export const EditorialList = () => {
@@ -27,19 +22,7 @@ export const EditorialList = () => {
 
     if (isLoading) {
         return (
-
-            <div className="loading" style={{
-                display: 'flex',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                height: '70vh',
-            }}>
-                <SyncLoader
-                    css={override}
-                    size={20}
-                    color='#36D7B7' />
-            </div>
-
+            <Loading />
         )
     }
     return (
