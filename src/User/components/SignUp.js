@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 
 // React Router Dom
 import { Link, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 
 // Material Ui Sign Up Page
 import Avatar from '@mui/material/Avatar';
@@ -21,6 +22,7 @@ import { signUp } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading';
 
 import { AuthContext } from '../../Shared/context/auth-context'
+
 
 
 
@@ -93,6 +95,12 @@ export const SignUp = () => {
     if (isLoading) {
         return (
             <Loading />
+        )
+    }
+
+    if (authData.isLoggedIn) {
+        return (
+            <Navigate to='/' replace={true}></Navigate>
         )
     }
     return (

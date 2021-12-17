@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Loading } from '../../Shared/components/Loading';
 import { LoginIn } from '../../Shared/API/api'
 import { useNavigate } from 'react-router-dom';
-
+import { Navigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Shared/context/auth-context';
@@ -24,7 +24,7 @@ import { AuthContext } from '../../Shared/context/auth-context';
 const theme = createTheme();
 
 export const Login = () => {
-    const { setIsLoggedIn } = useContext(AuthContext)
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState('')
@@ -77,6 +77,11 @@ export const Login = () => {
         )
     }
 
+    if (isLoggedIn) {
+        return (
+            <Navigate to='/' replace={true}></Navigate>
+        )
+    }
 
 
     return (
