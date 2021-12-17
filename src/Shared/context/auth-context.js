@@ -13,7 +13,8 @@ export const AuthContextProvider = ({ children }) => {
 
 
     const getIsLoggedIn = async () => {
-        const { data } = await isLoggedInAPI()
+        const response = await isLoggedInAPI()
+        const data = await response.json()
         setIsLoggedIn(data.isLoggedIn)
     }
 

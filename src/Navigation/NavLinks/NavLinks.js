@@ -1,14 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 import './NavLinks.css'
-import { NavLink } from 'react-router-dom'
+import { useNavigate, NavLink } from 'react-router-dom'
 
 
-import { FaBars, FaWindowClose, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
+import { FaBars, FaWindowClose, FaSignInAlt, FaSignOutAlt, FaSmile } from 'react-icons/fa'
 import { AiFillHome, AiFillCode } from 'react-icons/ai'
 import { HiPencilAlt } from 'react-icons/hi'
 import { BsFillFileCodeFill } from 'react-icons/bs'
+
+import { Logout } from '../../Shared/API/api'
 import { AuthContext } from '../../Shared/context/auth-context'
+
 
 import { FiLogIn } from 'react-icons/fi'
 
@@ -19,12 +22,45 @@ const IconCSS = {
 
 
 export const NavLinks = ({ setIsSideBarOpen }) => {
-
-    const { isLoggedIn } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
 
     const handleOnClick = () => {
         setIsSideBarOpen(false)
     }
+
+    const handleLogout = async () => {
+        try {
+            setIsSideBarOpen(false)
+            const res = await Logout()
+            const data = await res.json()
+
+            // console.log(data)
+            if (data['status'] === 'OK') {
+
+                setIsLoggedIn(false)
+
+                // remove from local storage
+                localStorage.removeItem('token')
+
+                alert('Logout Successfull')
+                navigate('/', { replace: true })
+
+            } else {
+
+                localStorage.removeItem('token')
+                alert(data.msg)
+                navigate('/', { replace: true })
+            }
+
+        } catch (e) {
+            console.log(e);
+            localStorage.removeItem('token')
+            navigate('/', { replace: true })
+
+        }
+    }
+
 
     return (
         <div className='toolbar_navigation-items'>
@@ -83,9 +119,11 @@ export const NavLinks = ({ setIsSideBarOpen }) => {
 
                 {
                     isLoggedIn && (
-                        <NavLink to='/logout' className='toolbar_navigation-item'>
-                            <li onClick={handleOnClick}> <FaSignOutAlt style={IconCSS} /> Logout</li>
-                        </NavLink>
+                        <div className='toolbar_navigation-item'>
+                            <li onClick={handleLogout} style={{
+                                cursor: 'pointer'
+                            }}> <FaSignOutAlt style={IconCSS} /> Logout</li>
+                        </div>
                     )
                 }
 

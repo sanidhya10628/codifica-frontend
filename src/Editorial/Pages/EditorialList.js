@@ -11,8 +11,11 @@ export const EditorialList = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     const getEditorials = async () => {
-        const { data } = await editorials()
+        const response = await editorials()
+        const data = await response.json()
+
         console.log(data)
+
         setIsLoading(false)
     }
 

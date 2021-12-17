@@ -19,12 +19,12 @@ import { useNavigate } from 'react-router-dom';
 
 
 import { Link } from 'react-router-dom'
-
+import { AuthContext } from '../../Shared/context/auth-context';
 
 const theme = createTheme();
 
 export const Login = () => {
-
+    const { setIsLoggedIn } = useContext(AuthContext)
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState('')
@@ -43,20 +43,31 @@ export const Login = () => {
                 setEmail(Formdata.get('email'))
                 setPassword(Formdata.get('password'))
 
-                const { data } = await LoginIn(email, password)
-                localStorage.setItem('token', data.token)
-                setIsLoading(false)
-                // navigate user to home page
-                navigate('/', { replace: true })
+                const response = await LoginIn(email, password)
+                const data = await response.json()
 
+                if (data['status'] === 'OK') {
+                    localStorage.setItem('token', `Bearer ${data.token}`)
+                    setIsLoggedIn(true)
+                    setIsLoading(false)
+                    // navigate user to home page
+                    navigate('/', { replace: true })
+                } else {
+                    setIsLoading(false)
+                    setIsLoggedIn(false)
+                    alert(data.msg)
+                }
 
             }
 
             else {
+                setIsLoading(false)
+
                 // alert Email and password can not be empty
             }
         } catch (e) {
             console.log(e);
+            setIsLoading(false)
         }
     };
 
@@ -65,6 +76,7 @@ export const Login = () => {
             <Loading />
         )
     }
+
 
 
     return (

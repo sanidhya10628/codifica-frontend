@@ -56,7 +56,10 @@ export const SignUp = () => {
             const isValid = await isValidCFHandle()
             if (email && password && codeforcesHandle && isValid) {
 
-                const { data } = await signUp(codeforcesHandle, email, password)
+                const response = await signUp(codeforcesHandle, email, password)
+                const data = await response.json()
+
+
                 if (data.status === 'OK') {
                     localStorage.setItem('token', `Bearer ${data.token}`)
                     authData.setEmail(email)
