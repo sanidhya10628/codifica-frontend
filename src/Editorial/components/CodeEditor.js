@@ -44,11 +44,14 @@ export const CodeEditor = () => {
     const handleSubmit = async (e) => {
 
         e.preventDefault()
+
         try {
-            await isUserHasSubmittedProblem()
+            if (problemLink && editorialDesc && editorialCode) {
+                await isUserHasSubmittedProblem()
 
 
-            console.log(tags, rating, title, index, contestId, programmingLanguage, isAccepted)
+                console.log(tags, rating, title, index, contestId, programmingLanguage, isAccepted)
+            }
         }
         catch (e) {
             console.log(e);
@@ -147,7 +150,7 @@ export const CodeEditor = () => {
                             <TextField
                                 id="standard-basic"
                                 label="Problem Link"
-                                variant="standard"
+                                variant="outlined"
                                 fullWidth
                                 onChange={(e) => setProblemLink(e.target.value)}
                             />
@@ -158,10 +161,11 @@ export const CodeEditor = () => {
                                 minRows={15}
                                 placeholder="Write Editorial Description Here"
                                 style={{
-                                    width: 600,
                                     padding: '10px 15px',
                                     letterSpacing: '1.5px',
-                                    borderRadius: '3px'
+                                    borderRadius: '3px',
+                                    maxWidth: '600px',
+                                    width: '100%'
                                 }}
                             />
                         </div>
@@ -176,6 +180,8 @@ export const CodeEditor = () => {
                                 onChange={onEditorStateChange}
                                 name="UNIQUE_ID_OF_DIV"
                                 editorProps={{ $blockScrolling: true }}
+                            // className='aceEditor-editor'
+
                             />
                         </div>
 
@@ -189,19 +195,7 @@ export const CodeEditor = () => {
                     </form>
                 </div>
 
-                {
-                    isAccepted && (
-                        <div>
-                            <p>{tags}</p>
-                            <p>{isAccepted}</p>
-                            <p>{rating}</p>
-                            <p>{title}</p>
-                            <p>{index}</p>
-                            <p>{contestId}</p>
-                            <p>{programmingLanguage}</p>
-                        </div>
-                    )
-                }
+
 
 
             </section>

@@ -5,7 +5,7 @@ import { CardComponent } from '../../Shared/components/Card'
 import { editorials } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading'
 
-
+import { Filter } from '../../Shared/components/Filter'
 
 export const EditorialList = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -30,6 +30,7 @@ export const EditorialList = () => {
     }
     return (
         <div>
+            {/* <Filter /> */}
             <CardComponent />
         </div>
     )

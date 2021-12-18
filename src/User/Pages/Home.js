@@ -25,48 +25,42 @@ export const Home = () => {
     }
     return (
         <div>
-            {
-                isLoggedIn ? (
-                    <h1>Welcome {cFHandle}!.. You are Logged IN!....</h1>
-                ) : (
-                    <div className="hero">
-                        <section>
-                            <h1>
-                                Welcome to Codifica
-                            </h1>
-                            <div className="info">
-                                A place to Read and Write Unofficial Codeforces Editorials
-                            </div>
-                            <div className="btn">
-                                <Link to='/login' style={{
-                                    textDecoration: 'none',
-                                    color: 'inherit'
-                                }}>
-                                    <button>
-                                        Login Now
-                                    </button>
-                                </Link>
-
-                            </div>
-                            <div className="faIcon">
-                                <FaLaptopCode style={{
-                                    fontSize: '150px',
-                                    color: 'rgb(129 240 229)'
-                                }} />
-                            </div>
-                            <div className='languages-Icon'>
-                                {iconData.map((item) => {
-                                    return (
-                                        <article key={item.id}>
-                                            {item.icon}
-                                        </article>
-                                    )
-                                })}
-                            </div>
-                        </section>
+            <div className="hero">
+                <section>
+                    <h1>
+                        Welcome {!isLoggedIn ? ' to Codifica' : `${cFHandle}`}
+                    </h1>
+                    <div className="info">
+                        A place to Read and Write Unofficial Codeforces Editorials
                     </div>
-                )
-            }
+                    <div className="btn">
+                        <Link to={isLoggedIn ? '/writeEditorial' : '/login'} style={{
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        }}>
+                            <button>
+                                {isLoggedIn ? 'Write Editorial' : 'Login Now'}
+                            </button>
+                        </Link>
+
+                    </div>
+                    <div className="faIcon">
+                        <FaLaptopCode style={{
+                            fontSize: '150px',
+                            color: 'rgb(129 240 229)'
+                        }} />
+                    </div>
+                    <div className='languages-Icon'>
+                        {iconData.map((item) => {
+                            return (
+                                <article key={item.id}>
+                                    {item.icon}
+                                </article>
+                            )
+                        })}
+                    </div>
+                </section>
+            </div>
 
         </div>
     )

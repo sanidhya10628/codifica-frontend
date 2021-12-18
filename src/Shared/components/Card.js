@@ -20,7 +20,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './Card.css'
 
 
-import img1 from '../../assets/images/hello.jpg'
 const cards = [1, 2];
 
 const theme = createTheme();

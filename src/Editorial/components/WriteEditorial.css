@@ -3,6 +3,8 @@
 }
 
 .main-div section {
+  background-color: #85ffbd;
+  background-color: white;
   max-width: 1080px;
   margin: auto;
   padding-left: 25px;
@@ -12,6 +14,7 @@
   align-items: center;
   flex-direction: column;
   border-radius: 5px;
+  color: black;
 }
 
 .main-div section h1 {
@@ -23,4 +26,10 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 20px;
+}
+
+@media screen and (max-width: 650px) {
+  /* .aceEditor-editor {
+    width: 1000px;
+  } */
 }
