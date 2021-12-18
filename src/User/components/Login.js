@@ -97,8 +97,12 @@ export const Login = () => {
 
         <ThemeProvider theme={theme}>
 
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
+            <Container component="main" maxWidth="xs" sx={{
+                background: 'white',
+                borderRadius: '5px',
+                color: 'black'
+            }}>
+                {/* <CssBaseline /> */}
 
                 <Box
                     sx={{
@@ -107,13 +111,16 @@ export const Login = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
 
+
                     }}
                 >
                     {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockIcon />
                     </Avatar> */}
 
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" sx={{
+                        marginTop: '25px'
+                    }}>
                         Sign in
                     </Typography>
 
@@ -148,20 +155,27 @@ export const Login = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
+
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Sign In
                         </Button>
-                        <Grid container>
+                        <Grid container sx={{
+                            marginTop: '15px',
+                            marginBottom: '25px'
+                        }}>
                             <Grid item xs>
-                                <Link to='/forgotPassword'>
+                                <Link to='/forgotPassword' style={{
+                                    color: '#1976d2'
+                                }}>
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
                                 Don't have an account?
                                 <Link to='/signUp' style={{
-                                    marginLeft: '3px'
+                                    marginLeft: '3px',
+                                    color: '#1976d2'
                                 }}>
                                     {"Sign Up"}
                                 </Link>
@@ -170,7 +184,7 @@ export const Login = () => {
 
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
             </Container>
         </ThemeProvider>
     );
@@ -182,7 +196,7 @@ function Copyright(props) {
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" to='/'>
-                Your Website
+                Codifica
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}

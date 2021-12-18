@@ -19,7 +19,7 @@ export const SideDrawer = ({ isSideBarOpen, setIsSideBarOpen }) => {
         <nav className={isSideBarOpen ? 'side-drawer active' : 'side-drawer'} >
             <header>
                 <div className='side-drawer-logo'>
-                    <NavLink to='/' className='side-drawer-logo-link'>Codifica</NavLink>
+                    <NavLink to='/' className='side-drawer-logo-link' onClick={() => setIsSideBarOpen(false)}>Codifica</NavLink>
                 </div>
                 <div className='faBars-icon'>
                     <FaWindowClose onClick={() => setIsSideBarOpen(false)} />

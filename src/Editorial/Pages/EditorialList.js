@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import '../components/EditorialList.css'
-import { Card } from '../../Shared/components/Card'
+import { CardComponent } from '../../Shared/components/Card'
 
 import { editorials } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading'
@@ -30,7 +30,7 @@ export const EditorialList = () => {
     }
     return (
         <div>
-            <Card />
+            <CardComponent />
         </div>
     )
 }

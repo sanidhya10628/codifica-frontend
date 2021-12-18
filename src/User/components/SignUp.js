@@ -52,37 +52,39 @@ export const SignUp = () => {
         setIsLoading(true)
         try {
             event.preventDefault();
+            if (email && password && codeforcesHandle) {
+                // const data = new FormData(event.currentTarget);
+                // eslint-disable-next-line no-console
+                const isValid = await isValidCFHandle()
+                if (isValid) {
 
-            // const data = new FormData(event.currentTarget);
-            // eslint-disable-next-line no-console
-            const isValid = await isValidCFHandle()
-            if (email && password && codeforcesHandle && isValid) {
-
-                const response = await signUp(codeforcesHandle, email, password)
-                const data = await response.json()
+                    const response = await signUp(codeforcesHandle, email, password)
+                    const data = await response.json()
 
 
-                if (data.status === 'OK') {
-                    localStorage.setItem('token', `Bearer ${data.token}`)
-                    authData.setEmail(email)
-                    authData.setCFHandle(codeforcesHandle)
-                    // navigate to home page
+                    if (data.status === 'OK') {
+                        localStorage.setItem('token', `Bearer ${data.token}`)
+                        authData.setEmail(email)
+                        authData.setCFHandle(codeforcesHandle)
+                        // navigate to home page
 
-                    authData.setIsLoggedIn(true)
-                    setIsLoading(false)
-                    navigate('/', { replace: true })
-                } else if (data.status === 'ERROR') {
-                    const error = data.msg
-                    alert(error)
+                        authData.setIsLoggedIn(true)
+                        setIsLoading(false)
+                        navigate('/', { replace: true })
+                    } else if (data.status === 'ERROR') {
+                        const error = data.msg
+                        alert(error)
+                    }
+                } else {
+                    alert('Validations failed')
                 }
-
             } else {
                 // email password name can not be empty
                 // alert
                 setIsLoading(false)
 
 
-
+                alert('all field are required')
             }
         } catch (e) {
             setIsLoading(false)
@@ -105,11 +107,15 @@ export const SignUp = () => {
     }
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
+            <Container component="main" maxWidth="xs" sx={{
+                background: 'white',
+                borderRadius: '5px',
+                color: 'black'
+            }}>
+                {/* <CssBaseline /> */}
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 5,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -118,7 +124,9 @@ export const SignUp = () => {
                     {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar> */}
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" sx={{
+                        marginTop: '25px'
+                    }}>
                         Sign up
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -172,11 +180,15 @@ export const SignUp = () => {
                         >
                             Sign Up
                         </Button>
-                        <Grid container justifyContent="flex-start">
+                        <Grid container justifyContent="flex-start" sx={{
+                            marginTop: '15px',
+                            marginBottom: '25px'
+                        }}>
                             <Grid item>
                                 Already have an account?
                                 <Link to='/login' style={{
-                                    marginLeft: '3px'
+                                    marginLeft: '3px',
+                                    color: '#1976d2'
                                 }}>
                                     Sign in
                                 </Link>
@@ -184,7 +196,7 @@ export const SignUp = () => {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
+                {/* <Copyright sx={{ mt: 5 }} /> */}
             </Container>
         </ThemeProvider>
     );

@@ -39,11 +39,15 @@ export const ForgotPassword = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
+            <Container component="main" maxWidth="xs" sx={{
+                background: 'white',
+                borderRadius: '5px',
+                color: 'black'
+            }}>
+                {/* <CssBaseline /> */}
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 5,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -52,7 +56,11 @@ export const ForgotPassword = () => {
                     {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockIcon />
                     </Avatar> */}
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1"
+                        sx={{
+                            marginTop: '25px'
+                        }}
+                        variant="h5">
                         Forgot Password
                     </Typography>
                     <Typography variant='p' style={{
@@ -84,12 +92,16 @@ export const ForgotPassword = () => {
                         >
                             Forgot Password
                         </Button>
-                        <Grid container>
+                        <Grid container sx={{
+                            marginTop: '15px',
+                            marginBottom: '25px'
+                        }}>
 
                             <Grid item>
                                 Already have an account?
                                 <Link to='/login' style={{
-                                    marginLeft: '3px'
+                                    marginLeft: '3px',
+                                    color: '#1976d2'
                                 }}>
                                     {"Sign In"}
                                 </Link>
@@ -98,7 +110,7 @@ export const ForgotPassword = () => {
 
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
             </Container>
         </ThemeProvider>
     );
