@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { Loading } from '../../Shared/components/Loading';
@@ -21,6 +22,10 @@ import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Shared/context/auth-context';
 
+
+import { AlertAction } from '../../Shared/components/Alert'
+
+
 const theme = createTheme();
 
 export const Login = () => {
@@ -29,7 +34,6 @@ export const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
 
 
 
@@ -53,9 +57,14 @@ export const Login = () => {
                     // navigate user to home page
                     navigate('/', { replace: true })
                 } else {
+                    // Loading set false
                     setIsLoading(false)
+
+                    // Set is logged in false
                     setIsLoggedIn(false)
-                    alert(data.msg)
+
+                    // Show Alert
+
                 }
 
             }
@@ -85,23 +94,29 @@ export const Login = () => {
 
 
     return (
+
         <ThemeProvider theme={theme}>
+
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
+
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 5,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+
                     }}
                 >
                     {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockIcon />
                     </Avatar> */}
+
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
+
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
@@ -115,6 +130,7 @@ export const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+
                         <TextField
                             margin="normal"
                             required

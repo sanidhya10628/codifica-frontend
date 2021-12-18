@@ -7,16 +7,18 @@ const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(undefined)
-    const [loading, setLoading] = useState(true)
     const [email, setEmail] = useState('')
     const [cFHandle, setCFHandle] = useState('')
 
+    const [loading, setLoading] = useState(true)
 
     const getIsLoggedIn = async () => {
         const response = await isLoggedInAPI()
         const data = await response.json()
-        setCFHandle(data.user.codeforcesHandle)
-        setEmail(data.user.email)
+        if (data['status'] === 'OK') {
+            setCFHandle(data.user.codeforcesHandle)
+            setEmail(data.user.email)
+        }
         setIsLoggedIn(data.isLoggedIn)
 
         setLoading(false)

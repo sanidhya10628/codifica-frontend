@@ -1,0 +1,54 @@
+.hero {
+  margin: 70px 0;
+}
+
+.hero section {
+  max-width: 1080px;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero section h1 {
+  font-size: 44px;
+  letter-spacing: 1.3px;
+}
+
+.hero section .info {
+  font-size: 20px;
+  letter-spacing: 1.2px;
+}
+
+.hero section .btn button {
+  margin-top: 20px;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-family: inherit;
+  font-weight: 700;
+  background-color: #66fcf1;
+  color: rgb(1, 23, 26);
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  box-shadow: 0px 0px 15px rgba(3, 247, 255, 0.897);
+}
+
+.hero section .btn button:hover {
+  background-color: #08e6cf;
+  color: rgb(1, 23, 26);
+  transition: 850ms;
+}
+
+.languages-Icon {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+}
