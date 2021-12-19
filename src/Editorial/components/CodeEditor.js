@@ -103,7 +103,8 @@ export const CodeEditor = () => {
                         difficultyLevel,
                         editorialDesc,
                         editorialCode,
-                        programmingLanguage
+                        programmingLanguage,
+                        index
                     )
 
 

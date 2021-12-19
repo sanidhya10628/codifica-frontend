@@ -17,7 +17,8 @@ export const NoEditorial = () => {
             background: 'white',
             marginTop: '70px',
             padding: '20px',
-            borderRadius: '2px'
+            borderRadius: '2px',
+
         }}>
             <Typography
                 component="h1"
@@ -29,7 +30,9 @@ export const NoEditorial = () => {
                 No Editorial To Display
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                Go and Write Editorial!...
+                {
+                    isLoggedIn ? 'Go and Write Editorial!...' : 'Login and Write Editorial'
+                }
             </Typography>
             <Stack
                 sx={{ pt: 4 }}

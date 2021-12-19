@@ -17,7 +17,7 @@ import { EditorialList } from './Editorial/Pages/EditorialList';
 import { Editorial } from './Editorial/Pages/Editorial'
 import { AuthContextProvider } from './Shared/context/auth-context'
 import { PageNotFound } from './User/Pages/PageNotFound';
-
+import { MyEditorials } from './Editorial/Pages/MyEditorials'
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='/writeEditorial' element={<WriteEditorial />} />
           <Route path='/editorials' element={<EditorialList />} />
+          <Route path='/myeditorials' element={<MyEditorials />} />
           <Route path='/editorial/:id' element={<Editorial />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>

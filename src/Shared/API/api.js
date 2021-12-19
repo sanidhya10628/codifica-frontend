@@ -52,7 +52,7 @@ export const editorials = () => fetch(`${URL}/editorials`, {
 })
 
 export const myEditorialsAPI = () => fetch(`${URL}/user/editorials`, {
-    method: 'POST',
+    method: 'GET',
     headers: headers
 })
 
@@ -79,6 +79,7 @@ export const writeEditorialAPI = (problemLink,
     editorialDesc,
     editorialCode,
     programmingLanguage,
+    index
 ) => fetch(`${URL}/user/write/editorial`, {
     method: 'POST',
     headers: headers,
@@ -91,6 +92,7 @@ export const writeEditorialAPI = (problemLink,
         editorialDesc,
         editorialCode,
         programmingLanguage,
+        index
     })
 })
 

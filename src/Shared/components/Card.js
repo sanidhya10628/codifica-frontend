@@ -13,7 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
+// React Router Dom
+import { Link } from 'react-router-dom';
 
 // Import Components
 import { NoEditorial } from './NoEditorial';
@@ -22,10 +23,6 @@ import { NoEditorial } from './NoEditorial';
 const theme = createTheme();
 
 export const CardComponent = ({ editorialList }) => {
-
-
-    console.log(editorialList)
-
     if (editorialList.length === 0) {
         return (
             <NoEditorial />
@@ -62,7 +59,18 @@ export const CardComponent = ({ editorialList }) => {
                                             Written By:- <span style={{
 
 
-                                            }}>Sanidhya Mahajan</span>
+                                            }}>
+                                                <a
+                                                    href={`https://codeforces.com/profile/${editorial.cFHandle}`}
+                                                    target='_blank'
+                                                    style={{
+                                                        textDecoration: 'none',
+                                                        color: '#1976d2'
+                                                    }}
+                                                >
+                                                    {editorial.cFHandle}
+                                                </a>
+                                            </span>
                                         </Typography>
                                         <Typography variant="button" display="block" gutterBottom sx={{
                                             fontFamily: 'inherit',
@@ -79,7 +87,7 @@ export const CardComponent = ({ editorialList }) => {
                                             fontWeight: '800',
                                             fontSize: '16px'
                                         }}>
-                                            Rating: {editorial.difficultyLevel}
+                                            Problem Rating: {editorial.difficultyLevel}
                                         </Typography>
                                         <Typography gutterBottom variant='body1' component='div' className='tags-typo'>
                                             {editorial.problemTags.map((tag, index) => {
@@ -94,8 +102,13 @@ export const CardComponent = ({ editorialList }) => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="medium" >View</Button>
+                                        <Link to='/' style={{
+                                            textDecoration: 'none',
+                                            color: 'inherit'
+                                        }}>
+                                            <Button size="medium" >View</Button>
 
+                                        </Link>
                                     </CardActions>
                                 </Card>
                             </Grid>

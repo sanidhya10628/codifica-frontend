@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from 'react'
 
-// Import CSS
-import '../components/EditorialList.css'
-
 // Import Components
 import { CardComponent } from '../../Shared/components/Card'
-import { editorials } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading'
+import { myEditorialsAPI } from '../../Shared/API/api'
 
 
-export const EditorialList = () => {
+export const MyEditorials = () => {
+
+
+
     const [isLoading, setIsLoading] = useState(true)
-    const [editorialList, setEditorialList] = useState([])
+    const [myEditorialList, setMyEditorialList] = useState([])
 
     const getEditorials = async () => {
         try {
             setIsLoading(true)
-            const response = await editorials()
+            const response = await myEditorialsAPI()
             const data = await response.json()
             if (data['status'] === 'OK') {
-                setEditorialList(data.allEditorials)
-                // console.log(data)
 
+                setMyEditorialList(data.myEditorials)
                 setIsLoading(false)
+
             } else {
-                setIsLoading(false)
 
+                setIsLoading(false)
                 alert(data.msg)
+
             }
         } catch (error) {
             setIsLoading(false)
@@ -46,7 +47,7 @@ export const EditorialList = () => {
     return (
         <div>
 
-            <CardComponent editorialList={editorialList} />
+            <CardComponent editorialList={myEditorialList} />
         </div>
     )
 }
