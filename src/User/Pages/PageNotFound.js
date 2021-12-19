@@ -1,8 +1,11 @@
-import { color } from '@mui/system'
 import React from 'react'
+
+//  Import CSS
+import './PageNotFound.css'
+
+// React Router Dom
 import { Link } from 'react-router-dom'
 
-import './PageNotFound.css'
 export const PageNotFound = () => {
     return (
         <div className='pagenot-found'>

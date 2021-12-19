@@ -1,21 +1,24 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
+// Import CSS
 import './NavLinks.css'
+
+// React Router Dom
 import { useNavigate, NavLink } from 'react-router-dom'
 
-
-import { FaBars, FaWindowClose, FaSignInAlt, FaSignOutAlt, FaSmile } from 'react-icons/fa'
+// React Icons
+import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
 import { AiFillHome, AiFillCode } from 'react-icons/ai'
 import { HiPencilAlt } from 'react-icons/hi'
 import { BsFillFileCodeFill } from 'react-icons/bs'
 
+// Import Components
 import { Logout } from '../../Shared/API/api'
 import { AuthContext } from '../../Shared/context/auth-context'
 
 
-import { FiLogIn } from 'react-icons/fi'
 
-
+// Style (CSS) Override
 const IconCSS = {
     marginRight: '2px'
 }
@@ -107,15 +110,6 @@ export const NavLinks = ({ setIsSideBarOpen }) => {
                     )
                 }
 
-                {/* {
-                    !isLoggedIn && (
-                        <NavLink to='/signUp' className='toolbar_navigation-item'>
-                            <li onClick={handleOnClick}>
-                                <FiLogIn style={IconCSS} /> Sign Up
-                            </li>
-                        </NavLink>
-                    )
-                } */}
 
                 {
                     isLoggedIn && (

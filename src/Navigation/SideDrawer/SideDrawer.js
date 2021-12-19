@@ -1,20 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 
+// Import CSS
 import './SideDrawer.css'
+
+// Import React Router Dom
 import { NavLink } from 'react-router-dom'
 
+// Import Components
 import { NavLinks } from '../NavLinks/NavLinks'
-
-import { FaBars, FaWindowClose } from 'react-icons/fa'
+import { FaWindowClose } from 'react-icons/fa'
 
 
 
 export const SideDrawer = ({ isSideBarOpen, setIsSideBarOpen }) => {
-
-
-
-
-
     return (
         <nav className={isSideBarOpen ? 'side-drawer active' : 'side-drawer'} >
             <header>

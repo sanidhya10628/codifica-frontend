@@ -1,12 +1,16 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 
+// Import CSS
 import './Navbar.css'
+
+// React Router Dom
 import { NavLink } from 'react-router-dom'
 
+// Import Components
 import { SideDrawer } from './SideDrawer/SideDrawer'
 import { BackDrop } from './Backdrop/Backdrop'
 
-
+// React Icons
 import { FaBars } from 'react-icons/fa'
 
 

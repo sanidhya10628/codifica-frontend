@@ -1,26 +1,27 @@
 import React, { useContext } from 'react'
 
-import { AuthContext } from '../../Shared/context/auth-context'
+// Import CSS
+import './Home.css'
 
-import Alert from '@mui/material/Alert';
+// Import Components
+import { AuthContext } from '../../Shared/context/auth-context'
+import { Loading } from '../../Shared/components/Loading';
+
+// React Router Dom
 import { Link } from 'react-router-dom';
 
+// React Icons
 import { FaLaptopCode } from 'react-icons/fa'
-import './Home.css'
-import { color } from '@mui/system';
-import { SiPython, SiJavascript, SiJava, SiCplusplus, SiKotlin } from 'react-icons/si'
+import { SiPython, SiJava, SiCplusplus } from 'react-icons/si'
+
 
 export const Home = () => {
 
-
-
-    const { isLoggedIn, email, cFHandle, loading, setLoading } = useContext(AuthContext)
+    const { isLoggedIn, cFHandle, loading } = useContext(AuthContext)
 
     if (loading) {
         return (
-            <div>
-                Loading
-            </div>
+            <Loading />
         )
     }
     return (
@@ -83,7 +84,3 @@ const iconData = [
         icon: <SiPython style={iconCSSOverride} />
     }
 ]
-
-const iconOverride = {
-    fontSize: '40px'
-}

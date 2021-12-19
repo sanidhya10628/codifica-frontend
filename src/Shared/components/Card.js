@@ -1,30 +1,36 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+import React from 'react';
+
+// Import CSS
+import './Card.css'
+
+// Material UI
 import Button from '@mui/material/Button';
-// import { CameraIcon } from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-import './Card.css'
 
+// Import Components
+import { NoEditorial } from './NoEditorial';
 
-const cards = [1, 2];
 
 const theme = createTheme();
 
-export const CardComponent = () => {
+export const CardComponent = ({ editorialList }) => {
+
+
+    console.log(editorialList)
+
+    if (editorialList.length === 0) {
+        return (
+            <NoEditorial />
+        )
+    }
     return (
         <ThemeProvider theme={theme}>
             {/* <CssBaseline /> */}
@@ -32,8 +38,8 @@ export const CardComponent = () => {
             <main>
                 <Container sx={{ py: 8 }} maxWidth="md">
                     <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} >
+                        {editorialList.map((editorial) => (
+                            <Grid item key={editorial._id} xs={12} >
                                 <Card
                                     sx={{
                                         height: '100%', display: 'flex', flexDirection: 'column',
@@ -44,10 +50,10 @@ export const CardComponent = () => {
 
                                     <CardContent sx={{ flexGrow: 1 }}>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            <strong>Anton and currency you all know</strong>
+                                            <strong>{editorial.title}</strong>
                                         </Typography>
                                         <Typography variant="subtitle2" gutterBottom component="div">
-                                            <a href="https://codeforces.com/problemset/problem/1618/G" target='_blank' style={{
+                                            <a href={editorial.problemLink} target='_blank' style={{
                                                 textDecoration: 'none',
                                                 color: '#1976d2'
                                             }}>Problem Link</a>
@@ -66,27 +72,24 @@ export const CardComponent = () => {
                                         }}>
                                             Programming Language: <span style={{
 
-                                            }}>C++</span>
+                                            }}>{editorial.programmingLanguage}</span>
                                         </Typography>
                                         <Typography variant="button" display="block" gutterBottom className='rating-typo' sx={{
                                             fontFamily: 'inherit',
                                             fontWeight: '800',
                                             fontSize: '16px'
                                         }}>
-                                            Rating: 1300
+                                            Rating: {editorial.difficultyLevel}
                                         </Typography>
                                         <Typography gutterBottom variant='body1' component='div' className='tags-typo'>
-                                            <Button size='small' variant='contained' color='secondary'>
-                                                Greedy
-                                            </Button>
-                                            <Button size='small' variant='contained' color='secondary'>
-                                                Math
+                                            {editorial.problemTags.map((tag, index) => {
+                                                return (
 
-                                            </Button>
-                                            <Button size='small' variant='contained' color='secondary'>
-                                                Strings
-
-                                            </Button>
+                                                    <Button size='small' variant='contained' color='secondary' key={index}>
+                                                        {tag}
+                                                    </Button>
+                                                )
+                                            })}
 
                                         </Typography>
                                     </CardContent>

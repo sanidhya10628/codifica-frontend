@@ -8,6 +8,9 @@ import { Link, useNavigate } from 'react-router-dom';
 // import Components
 import { Loading } from '../../Shared/components/Loading'
 
+// import Auth Context
+import { AuthContext } from '../../Shared/context/auth-context'
+
 // Backend API
 import { writeEditorialAPI } from '../../Shared/API/api'
 
@@ -34,6 +37,9 @@ import Button from '@mui/material/Button';
 export const CodeEditor = () => {
 
     const navigate = useNavigate()
+
+    // Auth Context
+    const authData = React.useContext(AuthContext)
 
     // Loading
     const [isLoading, setIsLoading] = useState(false)
@@ -135,8 +141,8 @@ export const CodeEditor = () => {
     // Validate that user has accepted answer or not
     const isUserHasSubmittedProblem = async () => {
         try {
-
-            const response = await fetch('https://codeforces.com/api/user.status?handle=sanidhya10628')
+            const handle = authData.cFHandle
+            const response = await fetch(`https://codeforces.com/api/user.status?handle=${handle}`)
             const data = await response.json()
 
             if (data['status'] === 'OK') {

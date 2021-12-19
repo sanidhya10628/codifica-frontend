@@ -1,22 +1,3 @@
-import axios from "axios";
-
-// const API = axios.create({
-//     baseURL: 'http://localhost:8000'
-// })
-
-// const config = {
-//     headers: {
-//         Authorization: localStorage.getItem('token'),
-
-//     }
-// };
-
-// const bodyParameters = {
-//     key: "value"
-// };
-
-// API.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-
 const URL = 'http://localhost:8000';
 
 const headers = {

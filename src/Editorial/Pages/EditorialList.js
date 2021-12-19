@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import '../components/EditorialList.css'
-import { CardComponent } from '../../Shared/components/Card'
 
+// Import CSS
+import '../components/EditorialList.css'
+
+// Import Components
+import { CardComponent } from '../../Shared/components/Card'
 import { editorials } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading'
 
-import { Filter } from '../../Shared/components/Filter'
 
 export const EditorialList = () => {
     const [isLoading, setIsLoading] = useState(true)
+    const [editorialList, setEditorialList] = useState([])
 
     const getEditorials = async () => {
         const response = await editorials()
         const data = await response.json()
-
-        console.log(data)
+        setEditorialList(data)
+        // console.log(data)
 
         setIsLoading(false)
     }
@@ -30,8 +33,8 @@ export const EditorialList = () => {
     }
     return (
         <div>
-            {/* <Filter /> */}
-            <CardComponent />
+
+            <CardComponent editorialList={editorialList} />
         </div>
     )
 }

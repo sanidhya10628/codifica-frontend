@@ -5,25 +5,18 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Navigate } from 'react-router-dom';
 
 // Material Ui Sign Up Page
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
+// Import Components
 import { signUp } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading';
-
 import { AuthContext } from '../../Shared/context/auth-context'
-
-
 
 
 const theme = createTheme();
@@ -53,8 +46,8 @@ export const SignUp = () => {
         try {
             event.preventDefault();
             if (email && password && codeforcesHandle) {
-                // const data = new FormData(event.currentTarget);
-                // eslint-disable-next-line no-console
+
+
                 const isValid = await isValidCFHandle()
                 if (isValid) {
 
@@ -66,30 +59,32 @@ export const SignUp = () => {
                         localStorage.setItem('token', `Bearer ${data.token}`)
                         authData.setEmail(email)
                         authData.setCFHandle(codeforcesHandle)
+
                         // navigate to home page
 
                         authData.setIsLoggedIn(true)
                         setIsLoading(false)
                         navigate('/', { replace: true })
+
                     } else if (data.status === 'ERROR') {
+
                         const error = data.msg
                         alert(error)
+
                     }
                 } else {
                     alert('Validations failed')
+
                 }
             } else {
                 // email password name can not be empty
                 // alert
                 setIsLoading(false)
-
-
                 alert('all field are required')
+
             }
         } catch (e) {
             setIsLoading(false)
-
-            // console.log(e);
             alert('Something went wrong')
         }
     };
@@ -112,7 +107,7 @@ export const SignUp = () => {
                 borderRadius: '5px',
                 color: 'black'
             }}>
-                {/* <CssBaseline /> */}
+
                 <Box
                     sx={{
                         marginTop: 5,
@@ -121,9 +116,7 @@ export const SignUp = () => {
                         alignItems: 'center',
                     }}
                 >
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar> */}
+
                     <Typography component="h1" variant="h5" sx={{
                         marginTop: '25px'
                     }}>
@@ -196,7 +189,7 @@ export const SignUp = () => {
                         </Grid>
                     </Box>
                 </Box>
-                {/* <Copyright sx={{ mt: 5 }} /> */}
+
             </Container>
         </ThemeProvider>
     );
@@ -204,15 +197,4 @@ export const SignUp = () => {
 
 
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link to='/'>
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+

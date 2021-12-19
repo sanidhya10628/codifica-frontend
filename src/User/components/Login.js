@@ -1,29 +1,24 @@
 import React, { useState, useContext } from 'react';
-import Avatar from '@mui/material/Avatar';
+
+// Material UI
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+// Import Components
 import { Loading } from '../../Shared/components/Loading';
 import { LoginIn } from '../../Shared/API/api'
-import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-
-import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Shared/context/auth-context';
 
+// React Router Dom
+import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-import { AlertAction } from '../../Shared/components/Alert'
 
 
 const theme = createTheme();
@@ -58,8 +53,10 @@ export const Login = () => {
 
                     authData.setEmail(data.user.email)
                     authData.setCFHandle(data.user.codeforcesHandle)
+
                     // navigate user to home page
                     navigate('/', { replace: true })
+
                 } else {
                     // Loading set false
                     setIsLoading(false)
@@ -68,7 +65,7 @@ export const Login = () => {
                     setIsLoggedIn(false)
 
                     // Show Alert
-
+                    alert(data.msg)
                 }
 
             }
@@ -77,10 +74,12 @@ export const Login = () => {
                 setIsLoading(false)
 
                 // alert Email and password can not be empty
+                alert('Email and password can not be empty')
             }
         } catch (e) {
             console.log(e);
             setIsLoading(false)
+            alert(e)
         }
     };
 
@@ -106,7 +105,7 @@ export const Login = () => {
                 borderRadius: '5px',
                 color: 'black'
             }}>
-                {/* <CssBaseline /> */}
+
 
                 <Box
                     sx={{
@@ -118,9 +117,7 @@ export const Login = () => {
 
                     }}
                 >
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockIcon />
-                    </Avatar> */}
+
 
                     <Typography component="h1" variant="h5" sx={{
                         marginTop: '25px'
@@ -188,22 +185,10 @@ export const Login = () => {
 
                     </Box>
                 </Box>
-                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+
             </Container>
         </ThemeProvider>
     );
 }
 
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" to='/'>
-                Codifica
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}

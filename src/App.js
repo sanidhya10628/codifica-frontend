@@ -1,23 +1,25 @@
 import React from 'react';
+
+// Import CSS
 import './App.css';
+
+// Import React Router Dom
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+// Import Components
 import { Home } from './User/Pages/Home'
-import { WriteEditorial } from './Editorial/Pages/WriteEditorial'
 import { Navbar } from './Navigation/Navbar'
-import { EditorialList } from './Editorial/Pages/EditorialList';
-import { Editorial } from './Editorial/Pages/Editorial'
-import { PageNotFound } from './User/Pages/PageNotFound';
 import { Login } from './User/components/Login'
 import { SignUp } from './User/components/SignUp'
 import { ForgotPassword } from './User/components/ForgotPassword';
+import { WriteEditorial } from './Editorial/Pages/WriteEditorial'
+import { EditorialList } from './Editorial/Pages/EditorialList';
+import { Editorial } from './Editorial/Pages/Editorial'
 import { AuthContextProvider } from './Shared/context/auth-context'
-
-
+import { PageNotFound } from './User/Pages/PageNotFound';
 
 
 function App() {
-
   return (
     <AuthContextProvider>
       <Router>
@@ -30,7 +32,6 @@ function App() {
           <Route path='/writeEditorial' element={<WriteEditorial />} />
           <Route path='/editorials' element={<EditorialList />} />
           <Route path='/editorial/:id' element={<Editorial />} />
-
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Router>
