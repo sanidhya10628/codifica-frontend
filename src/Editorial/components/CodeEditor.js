@@ -1,18 +1,26 @@
-import React, { useState, useReducer, useEffect } from 'react'
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 
-import { Link } from 'react-router-dom';
+
+
+//  React Router Dom
+import { Link, useNavigate } from 'react-router-dom';
+
+// import Components
+import { Loading } from '../../Shared/components/Loading'
+
+// Backend API
+import { writeEditorialAPI } from '../../Shared/API/api'
+
 // import CSS
 import './WriteEditorial.css'
+
 // Code Editor
 import AceEditor from "react-ace";
-
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-dracula";
 
-
+// Material Ui
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
@@ -24,10 +32,18 @@ import Button from '@mui/material/Button';
 
 
 export const CodeEditor = () => {
+
+    const navigate = useNavigate()
+
+    // Loading
+    const [isLoading, setIsLoading] = useState(false)
+
+    // Form Data
     const [problemLink, setProblemLink] = useState('')
     const [editorialDesc, setEditorialDesc] = useState('')
     const [editorialCode, setEditorialCode] = useState('')
 
+    // For Responsive
     const [windowSize, setWindowSize] = useState(window.innerWidth)
 
     const checkWindowSize = () => {
@@ -64,16 +80,52 @@ export const CodeEditor = () => {
     const handleSubmit = async (e) => {
 
         e.preventDefault()
-
+        setIsLoading(true)
         try {
             if (problemLink && editorialDesc && editorialCode) {
+
                 await isUserHasSubmittedProblem()
+                if (isAccepted) {
+                    let name = title
+                    let problemTags = tags
+                    let difficultyLevel = rating
+                    const response = await writeEditorialAPI(
+                        problemLink,
+                        name,
+                        contestId,
+                        problemTags,
+                        difficultyLevel,
+                        editorialDesc,
+                        editorialCode,
+                        programmingLanguage
+                    )
 
 
-                console.log(tags, rating, title, index, contestId, programmingLanguage, isAccepted)
+                    const data = await response.json()
+
+                    if (data['status'] === 'OK') {
+
+                        // success editorial saved 
+                        setIsLoading(false)
+                        navigate('/', { replace: true })
+
+                    } else {
+
+                        setIsLoading(false)
+                        alert(data.msg)
+                    }
+                }
+
+            } else {
+
+                setIsLoading(false)
+                alert('All field are Required')
+
             }
         }
         catch (e) {
+
+            setIsLoading(false)
             console.log(e);
         }
     }
@@ -146,14 +198,20 @@ export const CodeEditor = () => {
 
             } else {
                 // something went wrong
+                setIsLoading(false)
 
             }
         } catch (e) {
+            setIsLoading(false)
             alert(e)
         }
     }
 
-
+    if (isLoading) {
+        return (
+            <Loading />
+        )
+    }
 
     if (windowSize < 600) {
         return (
@@ -227,6 +285,7 @@ export const CodeEditor = () => {
                                     maxWidth: '600px',
                                     width: '100%'
                                 }}
+                                onChange={(e) => setEditorialDesc(e.target.value)}
                             />
                         </div>
 
@@ -266,8 +325,6 @@ export const CodeEditor = () => {
 
     )
 }
-
-
 
 const style = {
     position: 'absolute',
