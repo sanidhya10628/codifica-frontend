@@ -30,6 +30,7 @@ const theme = createTheme();
 
 export const Login = () => {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
+    const authData = useContext(AuthContext)
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState('')
@@ -54,6 +55,9 @@ export const Login = () => {
                     localStorage.setItem('token', `Bearer ${data.token}`)
                     setIsLoggedIn(true)
                     setIsLoading(false)
+
+                    authData.setEmail(data.user.email)
+                    authData.setCFHandle(data.user.codeforcesHandle)
                     // navigate user to home page
                     navigate('/', { replace: true })
                 } else {
