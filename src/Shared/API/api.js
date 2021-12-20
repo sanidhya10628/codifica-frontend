@@ -74,6 +74,17 @@ export const deleteEditorialAPI = (id) => fetch(`${URL}/user/write/editorial`, {
     }),
 })
 
+// 9.
+
+export const editEditorialAPI = (id, editorialDesc, editorialCode) => fetch(`${URL}/user/write/editorial`, {
+    method: 'PATCH',
+    headers: headers,
+    body: JSON.stringify({
+        id,
+        editorialDesc,
+        editorialCode
+    }),
+})
 
 
 

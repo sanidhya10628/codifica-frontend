@@ -28,7 +28,7 @@ import { Loading } from '../../Shared/components/Loading'
 import { EditorialHeader } from '../components/EditorialHeader'
 import { ResponsiveEditor } from '../../Shared/components/ResponsiveEditor'
 import { AuthContext } from '../../Shared/context/auth-context'
-import { deleteEditorialAPI } from '../../Shared/API/api'
+import { deleteEditorialAPI, editEditorialAPI } from '../../Shared/API/api'
 
 // Code Editor
 import AceEditor from "react-ace";
@@ -50,6 +50,34 @@ export const Editorial = () => {
 
     const [editorialCode, setEditorialCode] = useState('')
     const authData = React.useContext(AuthContext)
+
+
+    const saveEditorialChanges = async () => {
+        try {
+            setIsLoading(true)
+            const response = await editEditorialAPI(id, editorial.editorialDesc, editorialCode)
+            const data = await response.json()
+
+            if (data['status'] === 'OK') {
+                alert(data.msg)
+            } else {
+                alert(data.msg)
+            }
+
+            setIsLoading(false)
+            setIsEditEditorial(false)
+            navigate('/', { replace: true })
+        } catch (error) {
+            console.log(error)
+            alert(error)
+            setIsEditEditorial(false)
+            setIsLoading(false)
+        }
+    }
+    const [isEditEditorial, setIsEditEditorial] = useState(false)
+    const editEditorial = () => {
+        setIsEditEditorial(true)
+    }
 
 
     const deleteEditorial = async () => {
@@ -245,7 +273,7 @@ export const Editorial = () => {
                                                     name="UNIQUE_ID_OF_DIV"
                                                     editorProps={{ $blockScrolling: true }}
                                                     value={editorialCode}
-                                                    readOnly={true}
+                                                    readOnly={!isEditEditorial ? true : false}
                                                     fontSize={14}
                                                     height='700px'
                                                     width={windowSize > 800 ? '700px' : '550px'}
@@ -257,10 +285,22 @@ export const Editorial = () => {
                                             {
                                                 authData.cFHandle === editorial.cFHandle ? (
                                                     <Typography gutterBottom variant='body1' component='div' className='tags-typo'>
-                                                        <Button size='large' variant='contained' color='primary' endIcon={<MdEdit />}>
-                                                            Edit
+                                                        <Button
+                                                            size='large'
+                                                            variant='contained'
+                                                            color='primary'
+                                                            onClick={isEditEditorial ? () => saveEditorialChanges() :
+                                                                () => editEditorial()
+                                                            }
+                                                            endIcon={<MdEdit />}>
+                                                            {isEditEditorial ? 'Save Changes' : 'Edit'}
                                                         </Button>
-                                                        <Button size='large' variant='contained' color='error' endIcon={<MdDelete />} onClick={() => deleteEditorial()}>
+                                                        <Button
+                                                            size='large'
+                                                            variant='contained'
+                                                            color='error'
+                                                            endIcon={<MdDelete />}
+                                                            onClick={() => deleteEditorial()}>
                                                             Delete
                                                         </Button>
 
