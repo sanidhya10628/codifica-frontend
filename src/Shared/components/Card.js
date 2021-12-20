@@ -102,7 +102,7 @@ export const CardComponent = ({ editorialList }) => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Link to='/' style={{
+                                        <Link to={`/editorial/${editorial._id}`} style={{
                                             textDecoration: 'none',
                                             color: 'inherit'
                                         }}>

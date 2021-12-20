@@ -5,14 +5,14 @@ const headers = {
     "Content-type": "application/json",
 }
 
-
+// 1. 
 export const isLoggedInAPI = () => fetch(`${URL}/isLoggedIn`, {
     method: 'GET',
     headers: headers
 })
 
 
-
+// 2.
 export const signUp = (codeforcesHandle, email, password) => fetch(`${URL}/signup`, {
     method: 'POST',
     headers: {
@@ -25,6 +25,7 @@ export const signUp = (codeforcesHandle, email, password) => fetch(`${URL}/signu
     }),
 })
 
+// 3.
 export const LoginIn = (email, password) => fetch(`${URL}/login`, {
     method: 'POST',
     headers: {
@@ -36,7 +37,7 @@ export const LoginIn = (email, password) => fetch(`${URL}/login`, {
     }),
 })
 
-
+// 4.
 export const Logout = () => fetch(`${URL}/logout`, {
     method: 'POST',
     headers: {
@@ -46,18 +47,22 @@ export const Logout = () => fetch(`${URL}/logout`, {
 })
 
 
-
+// 5.
 export const editorials = () => fetch(`${URL}/editorials`, {
     method: 'GET',
 })
 
+// 6.
 export const myEditorialsAPI = () => fetch(`${URL}/user/editorials`, {
     method: 'GET',
     headers: headers
 })
 
-
-// export const singleEditorialAPI = () => 
+// 7.
+export const singleEditorialAPI = (id) => fetch(`${URL}/user/editorial/${id}`, {
+    method: 'GET',
+    headers: headers
+})
 
 
 

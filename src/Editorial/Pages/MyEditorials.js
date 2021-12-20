@@ -23,6 +23,7 @@ export const MyEditorials = () => {
                 setMyEditorialList(data.myEditorials)
                 setIsLoading(false)
 
+
             } else {
 
                 setIsLoading(false)
