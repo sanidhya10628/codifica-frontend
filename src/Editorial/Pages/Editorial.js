@@ -20,7 +20,7 @@ import Divider from '@mui/material/Divider';
 import { MdEdit, MdDelete } from 'react-icons/md'
 
 // React Router Dom
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // Import Components
 import { singleEditorialAPI } from '../../Shared/API/api'
@@ -28,17 +28,21 @@ import { Loading } from '../../Shared/components/Loading'
 import { EditorialHeader } from '../components/EditorialHeader'
 import { ResponsiveEditor } from '../../Shared/components/ResponsiveEditor'
 import { AuthContext } from '../../Shared/context/auth-context'
+import { deleteEditorialAPI } from '../../Shared/API/api'
 
 // Code Editor
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-dracula";
 
+
+
 const theme = createTheme();
 
 
 export const Editorial = () => {
 
+    const navigate = useNavigate()
     const { id } = useParams()
 
     const [isLoading, setIsLoading] = useState(false)
@@ -46,6 +50,33 @@ export const Editorial = () => {
 
     const [editorialCode, setEditorialCode] = useState('')
     const authData = React.useContext(AuthContext)
+
+
+    const deleteEditorial = async () => {
+        try {
+            setIsLoading(true)
+            const response = await deleteEditorialAPI(id)
+            const data = await response.json()
+
+            if (data['status'] === 'OK') {
+                alert(data.msg)
+            } else {
+                alert(data.msg)
+            }
+
+            setIsLoading(false)
+            navigate('/', { replace: true })
+
+
+        } catch (error) {
+            console.log(error)
+            alert(error)
+            setIsLoading(false)
+
+
+        }
+    }
+
     // code editor function
     const onEditorStateChange = (newValue) => {
         setEditorialCode(newValue)
@@ -162,6 +193,9 @@ export const Editorial = () => {
                                                     </a>
                                                 </span>
                                             </Typography>
+                                            <Typography variant="subtitle2" gutterBottom component="div">
+                                                {editorial.date}
+                                            </Typography>
                                             <Typography variant="button" display="block" gutterBottom sx={{
                                                 fontFamily: 'inherit',
                                                 fontSize: '16px',
@@ -226,7 +260,7 @@ export const Editorial = () => {
                                                         <Button size='large' variant='contained' color='primary' endIcon={<MdEdit />}>
                                                             Edit
                                                         </Button>
-                                                        <Button size='large' variant='contained' color='error' endIcon={<MdDelete />}>
+                                                        <Button size='large' variant='contained' color='error' endIcon={<MdDelete />} onClick={() => deleteEditorial()}>
                                                             Delete
                                                         </Button>
 
