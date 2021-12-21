@@ -66,7 +66,8 @@ export const CommentForm = ({ id }) => {
     return (
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 5 }}>
             <TextField
-
+                multiline={true}
+                minRows={5}
                 margin="normal"
                 required
                 fullWidth
@@ -82,6 +83,7 @@ export const CommentForm = ({ id }) => {
             <Button
                 type="submit"
                 fullWidth
+                disabled={!comment ? true : false}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
             >

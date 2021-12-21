@@ -24,8 +24,9 @@ import { Loading } from '../../Shared/components/Loading';
 // React Router Dom
 import { useNavigate } from 'react-router-dom';
 
-export const Comments = ({ comments, cFHandle, editorialId }) => {
+export const Comments = ({ comments, editorialId }) => {
     const navigate = useNavigate()
+
     const authData = React.useContext(AuthContext)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -90,7 +91,7 @@ export const Comments = ({ comments, cFHandle, editorialId }) => {
                         position: 'absolute',
                         right: '0',
                         fontSize: '20px',
-                    }}><GrClose /></Button>
+                    }}><GrClose onClick={() => closeModal()} /></Button>
                     <CommentForm id={editorialId} />
                 </Box>
             </Modal>
@@ -134,7 +135,7 @@ export const Comments = ({ comments, cFHandle, editorialId }) => {
                                         </Typography>
 
                                         {
-                                            authData.cFHandle === cFHandle ? (
+                                            authData.cFHandle === comment.cFHandle && (
                                                 <Typography gutterBottom variant='body1' component='div' className='tags-typo' sx={{
                                                     marginTop: '8px'
                                                 }}>
@@ -159,7 +160,7 @@ export const Comments = ({ comments, cFHandle, editorialId }) => {
 
 
 
-                                                </Typography>) : undefined
+                                                </Typography>)
 
                                         }
                                     </CardContent>

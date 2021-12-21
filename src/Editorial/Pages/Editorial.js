@@ -357,7 +357,7 @@ export const Editorial = () => {
                 {
 
                     editorial && (
-                        <Comments comments={comments} cFHandle={editorial.cFHandle} editorialId={id} />
+                        <Comments comments={comments} editorialId={id} />
 
                     )
                 }
