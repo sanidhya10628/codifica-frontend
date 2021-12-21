@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
+// React Icons
 import { MdEdit, MdDelete } from 'react-icons/md'
 
 // React Router Dom
@@ -25,6 +25,7 @@ import { Loading } from '../../Shared/components/Loading'
 import { EditorialHeader } from '../components/EditorialHeader'
 import { ResponsiveEditor } from '../../Shared/components/ResponsiveEditor'
 import { AuthContext } from '../../Shared/context/auth-context'
+import { Comments } from '../components/Comments'
 // import { deleteEditorialAPI, editEditorialAPI } from '../../Shared/API/api'
 // import { singleEditorialAPI } from '../../Shared/API/api'
 
@@ -45,7 +46,7 @@ export const Editorial = () => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [editorial, setEditorial] = useState(null)
-
+    const [comments, setComments] = useState([])
     const [editorialCode, setEditorialCode] = useState('')
     const [editorialDesc, setEditorialDesc] = useState('')
     const authData = React.useContext(AuthContext)
@@ -119,7 +120,7 @@ export const Editorial = () => {
 
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             alert(error)
             setIsLoading(false)
 
@@ -140,8 +141,7 @@ export const Editorial = () => {
 
             const config = {
                 headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    "Content-Type": "application/json"
                 }
             }
 
@@ -151,13 +151,14 @@ export const Editorial = () => {
 
             if (data['status'] === 'OK') {
                 setEditorial(data.editorial)
+                setComments(data.comments)
                 setEditorialCode(data.editorial.editorialCode)
                 setEditorialDesc(data.editorial.editorialDesc)
                 setIsLoading(false)
 
 
             } else {
-
+                // console.log('inside else')
                 setIsLoading(false)
                 alert(data.msg)
 
@@ -199,7 +200,7 @@ export const Editorial = () => {
 
     if (windowSize < 635) {
         return (
-            <ResponsiveEditor windowSize={windowSize} />
+            <ResponsiveEditor />
         )
     }
 
@@ -349,6 +350,15 @@ export const Editorial = () => {
 
                             </Grid>
                         </Container>
+                    )
+                }
+
+                {/* Comments Sections Starts Here */}
+                {
+
+                    editorial && (
+                        <Comments comments={comments} cFHandle={editorial.cFHandle} editorialId={id} />
+
                     )
                 }
             </main>
