@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 // Material Ui
 import Box from '@mui/material/Box';
@@ -23,7 +23,7 @@ const style = {
 
 
 
-export const ResponsiveEditor = ({ windowSize }) => {
+export const ResponsiveEditor = () => {
     return (
         <div>
             <Modal

@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         }
-        const { data } = await axios.get('https://sanidhya-codifica.herokuapp.com/isLoggedIn', config)
+        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/isLoggedIn`, config)
         if (data['status'] === 'OK') {
             setCFHandle(data.user.codeforcesHandle)
             setEmail(data.user.email)

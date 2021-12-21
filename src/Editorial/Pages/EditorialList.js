@@ -27,7 +27,7 @@ export const EditorialList = () => {
                 }
             }
 
-            const { data } = await axios.get('https://sanidhya-codifica.herokuapp.com/editorials', config)
+            const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/editorials`, config)
 
             if (data['status'] === 'OK') {
                 setEditorialList(data.allEditorials)

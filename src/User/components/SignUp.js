@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import axios from 'axios'
 // React Router Dom
@@ -13,12 +13,17 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
 
 // Import Components
 import { Loading } from '../../Shared/components/Loading';
 import { AuthContext } from '../../Shared/context/auth-context'
 // import { signUp } from '../../Shared/API/api'
 
+// React Icons
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
+
+import './Login.css'
 
 const theme = createTheme();
 
@@ -27,7 +32,8 @@ export const SignUp = () => {
     const authData = useContext(AuthContext)
     const navigate = useNavigate();
 
-
+    const [showPassword, setShowPassword] = useState(false)
+    const [passwordAlert, setPasswordAlert] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [codeforcesHandle, setCodeforcesHandle] = useState('')
@@ -62,7 +68,7 @@ export const SignUp = () => {
                         }
                     }
 
-                    const { data } = await axios.post('https://sanidhya-codifica.herokuapp.com/signup', {
+                    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
                         codeforcesHandle, email, password
                     }, config)
                     if (data.status === 'OK') {
@@ -162,17 +168,58 @@ export const SignUp = () => {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
+
+                                <div className="password-holder">
+
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        autoComplete="new-password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value)
+                                            setPasswordAlert(true)
+                                        }}
+                                    />
+
+                                    {
+                                        !showPassword ? (
+                                            <BsFillEyeFill
+                                                className="eye-icon"
+                                                style={{
+                                                    transform: 'translateY(0%)'
+                                                }}
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            />
+                                        ) : (
+                                            <BsFillEyeSlashFill
+                                                className="eye-icon"
+                                                style={{
+                                                    transform: 'translateY(0%)'
+                                                }}
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            />
+                                        )
+                                    }
+                                </div>
+                                {passwordAlert && (
+                                    <Alert severity="info" sx={{
+                                        marginTop: '5px'
+                                    }}>
+                                        Password Policy:
+                                        <ul>
+                                            <li>Should be minimum of 6 character</li>
+                                            <li>Should be mix of both upper and lower case letters</li>
+                                            <li>Should contain atleast one number</li>
+                                            <li>Should contain atleast one special character</li>
+                                        </ul>
+                                    </Alert>
+                                )}
+
                             </Grid>
 
                         </Grid>
@@ -181,6 +228,7 @@ export const SignUp = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+
                         >
                             Sign Up
                         </Button>

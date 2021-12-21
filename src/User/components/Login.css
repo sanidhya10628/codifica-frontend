@@ -1,0 +1,14 @@
+.password-holder {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.eye-icon {
+  position: absolute;
+  font-size: 20px;
+  right: 3%;
+  transform: translateY(10%);
+  cursor: pointer;
+}

@@ -1,5 +1,8 @@
 import React, { useState, useContext } from 'react';
 
+// Import CSS
+import './Login.css'
+
 import axios from 'axios'
 
 // Material UI
@@ -17,10 +20,11 @@ import { AuthContext } from '../../Shared/context/auth-context';
 // import { LoginIn } from '../../Shared/API/api'
 
 // React Router Dom
-import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
+
+// React Icons
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
 
 const theme = createTheme();
@@ -32,6 +36,8 @@ export const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const [showPassword, setShowPassword] = useState(false)
 
 
 
@@ -52,13 +58,13 @@ export const Login = () => {
                 // const response = await LoginIn(email, password)
                 // const data = await response.json()
 
-                const { data } = await axios.post('https://sanidhya-codifica.herokuapp.com/login', {
+                const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
                     email, password
                 }, config)
                 // console.log(data)
                 if (data['status'] === 'OK') {
-                    localStorage.setItem('token', data.token)
 
+                    localStorage.setItem('token', data.token)
                     authData.setIsLoggedIn(true)
                     authData.setEmail(data.user.email)
                     authData.setCFHandle(data.user.codeforcesHandle)
@@ -68,14 +74,14 @@ export const Login = () => {
                     navigate('/')
 
                 } else {
-                    // Loading set false
-                    setIsLoading(false)
-
                     // Set is logged in false
                     setIsLoggedIn(false)
 
                     // Show Alert
                     alert(data.msg)
+
+                    // Loading set false
+                    setIsLoading(false)
                 }
 
             }
@@ -135,33 +141,56 @@ export const Login = () => {
                         Sign in
                     </Typography>
 
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
+                        <Grid container spacing={0}>
+                            <Grid item xs={12}>
 
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
 
+                                <div className="password-holder">
+                                    <TextField
+                                        margin="normal"
+
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        autoComplete="current-password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    {
+                                        !showPassword ? (
+                                            <BsFillEyeFill
+                                                className="eye-icon"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            />
+                                        ) : (
+                                            <BsFillEyeSlashFill
+                                                className="eye-icon"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            />
+                                        )
+                                    }
+                                </div>
+
+                            </Grid>
+                        </Grid>
                         <Button
                             type="submit"
                             fullWidth

@@ -64,7 +64,7 @@ export const Editorial = () => {
                 }
             }
 
-            const { data } = await axios.patch(`https://sanidhya-codifica.herokuapp.com/user/write/editorial`, {
+            const { data } = await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/user/write/editorial`, {
                 id, editorialDesc, editorialCode
             }, config)
 
@@ -106,7 +106,7 @@ export const Editorial = () => {
                 }
             }
 
-            const { data } = await axios.delete(`https://sanidhya-codifica.herokuapp.com/user/write/editorial`, config)
+            const { data } = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/user/write/editorial`, config)
             // console.log(data)
             if (data['status'] === 'OK') {
                 alert(data.msg)
@@ -145,7 +145,7 @@ export const Editorial = () => {
                 }
             }
 
-            const { data } = await axios.get(`https://sanidhya-codifica.herokuapp.com/user/editorial/${id}`, config)
+            const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/editorial/${id}`, config)
 
             // console.log(data);
 

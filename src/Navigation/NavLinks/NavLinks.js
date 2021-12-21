@@ -52,7 +52,7 @@ export const NavLinks = ({ setIsSideBarOpen }) => {
             //     }
             // })
 
-            const response = await fetch('https://sanidhya-codifica.herokuapp.com/logout', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -64,10 +64,11 @@ export const NavLinks = ({ setIsSideBarOpen }) => {
             // console.log(data)
             if (data['status'] === 'OK') {
 
-                setIsLoggedIn(false)
-
                 // remove from local storage
                 localStorage.removeItem('token')
+
+                setIsLoggedIn(false)
+
 
                 alert('Logout Successfull')
                 navigate('/', { replace: true })
@@ -82,7 +83,7 @@ export const NavLinks = ({ setIsSideBarOpen }) => {
         } catch (e) {
             setIsLoggedIn(false)
 
-            console.log(e);
+            // console.log(e);
             localStorage.removeItem('token')
             navigate('/', { replace: true })
 

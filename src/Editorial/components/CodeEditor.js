@@ -120,7 +120,7 @@ export const CodeEditor = () => {
                         }
                     }
 
-                    const { data } = await axios.post('https://sanidhya-codifica.herokuapp.com/user/write/editorial', {
+                    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/write/editorial`, {
                         problemLink,
                         name,
                         contestId,
