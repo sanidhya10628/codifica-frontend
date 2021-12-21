@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+import axios from 'axios'
+
 // Import CSS
 import '../components/Editorial.css'
 
@@ -8,13 +10,9 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import CardActions from '@mui/material/CardActions';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Modal from '@mui/material/Modal';
-import Divider from '@mui/material/Divider';
 
 
 import { MdEdit, MdDelete } from 'react-icons/md'
@@ -23,12 +21,12 @@ import { MdEdit, MdDelete } from 'react-icons/md'
 import { useParams, useNavigate } from 'react-router-dom';
 
 // Import Components
-import { singleEditorialAPI } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading'
 import { EditorialHeader } from '../components/EditorialHeader'
 import { ResponsiveEditor } from '../../Shared/components/ResponsiveEditor'
 import { AuthContext } from '../../Shared/context/auth-context'
-import { deleteEditorialAPI, editEditorialAPI } from '../../Shared/API/api'
+// import { deleteEditorialAPI, editEditorialAPI } from '../../Shared/API/api'
+// import { singleEditorialAPI } from '../../Shared/API/api'
 
 // Code Editor
 import AceEditor from "react-ace";
@@ -49,14 +47,26 @@ export const Editorial = () => {
     const [editorial, setEditorial] = useState(null)
 
     const [editorialCode, setEditorialCode] = useState('')
+    const [editorialDesc, setEditorialDesc] = useState('')
     const authData = React.useContext(AuthContext)
 
 
     const saveEditorialChanges = async () => {
         try {
             setIsLoading(true)
-            const response = await editEditorialAPI(id, editorial.editorialDesc, editorialCode)
-            const data = await response.json()
+            // const response = await editEditorialAPI(id, editorial.editorialDesc, editorialCode)
+            // const data = await response.json()
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+
+            const { data } = await axios.patch(`https://sanidhya-codifica.herokuapp.com/user/write/editorial`, {
+                id, editorialDesc, editorialCode
+            }, config)
 
             if (data['status'] === 'OK') {
                 alert(data.msg)
@@ -68,7 +78,7 @@ export const Editorial = () => {
             setIsEditEditorial(false)
             navigate('/', { replace: true })
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             alert(error)
             setIsEditEditorial(false)
             setIsLoading(false)
@@ -83,9 +93,21 @@ export const Editorial = () => {
     const deleteEditorial = async () => {
         try {
             setIsLoading(true)
-            const response = await deleteEditorialAPI(id)
-            const data = await response.json()
+            // const response = await deleteEditorialAPI(id)
+            // const data = await response.json()
 
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                data: {
+                    id: id
+                }
+            }
+
+            const { data } = await axios.delete(`https://sanidhya-codifica.herokuapp.com/user/write/editorial`, config)
+            // console.log(data)
             if (data['status'] === 'OK') {
                 alert(data.msg)
             } else {
@@ -113,14 +135,24 @@ export const Editorial = () => {
         try {
 
             setIsLoading(true)
-            const response = await singleEditorialAPI(id)
-            const data = await response.json()
+            // const response = await singleEditorialAPI(id)
+            // const data = await response.json()
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+
+            const { data } = await axios.get(`https://sanidhya-codifica.herokuapp.com/user/editorial/${id}`, config)
 
             // console.log(data);
 
             if (data['status'] === 'OK') {
                 setEditorial(data.editorial)
                 setEditorialCode(data.editorial.editorialCode)
+                setEditorialDesc(data.editorial.editorialDesc)
                 setIsLoading(false)
 
 
@@ -133,7 +165,7 @@ export const Editorial = () => {
 
         } catch (error) {
 
-            console.log(error);
+            // console.log(error);
             setIsLoading(false)
             alert(error)
 

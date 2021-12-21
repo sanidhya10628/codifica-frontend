@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
+import axios from 'axios'
+
 // Import CSS
 import '../components/EditorialList.css'
 
 // Import Components
 import { CardComponent } from '../../Shared/components/Card'
-import { editorials } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading'
+// import { editorials } from '../../Shared/API/api'
 
 
 export const EditorialList = () => {
@@ -16,8 +18,17 @@ export const EditorialList = () => {
     const getEditorials = async () => {
         try {
             setIsLoading(true)
-            const response = await editorials()
-            const data = await response.json()
+            // const response = await editorials()
+            // const data = await response.json()
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+
+            const { data } = await axios.get('https://sanidhya-codifica.herokuapp.com/editorials', config)
+
             if (data['status'] === 'OK') {
                 setEditorialList(data.allEditorials)
                 // console.log(data)

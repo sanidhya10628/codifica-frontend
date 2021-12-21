@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 
+import axios from 'axios'
 // React Router Dom
 import { Link, useNavigate } from 'react-router-dom'
 import { Navigate } from 'react-router-dom';
@@ -14,9 +15,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Import Components
-import { signUp } from '../../Shared/API/api'
 import { Loading } from '../../Shared/components/Loading';
 import { AuthContext } from '../../Shared/context/auth-context'
+// import { signUp } from '../../Shared/API/api'
 
 
 const theme = createTheme();
@@ -51,12 +52,21 @@ export const SignUp = () => {
                 const isValid = await isValidCFHandle()
                 if (isValid) {
 
-                    const response = await signUp(codeforcesHandle, email, password)
-                    const data = await response.json()
+                    // const response = await signUp(codeforcesHandle, email, password)
+                    // const data = await response.json()
 
 
+                    const config = {
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+
+                    const { data } = await axios.post('https://sanidhya-codifica.herokuapp.com/signup', {
+                        codeforcesHandle, email, password
+                    }, config)
                     if (data.status === 'OK') {
-                        localStorage.setItem('token', `Bearer ${data.token}`)
+                        localStorage.setItem('token', data.token)
                         authData.setEmail(email)
                         authData.setCFHandle(codeforcesHandle)
 
@@ -68,12 +78,13 @@ export const SignUp = () => {
 
                     } else if (data.status === 'ERROR') {
 
-                        const error = data.msg
-                        alert(error)
+                        alert(data.msg)
+                        setIsLoading(false)
 
                     }
                 } else {
                     alert('Validations failed')
+                    setIsLoading(false)
 
                 }
             } else {

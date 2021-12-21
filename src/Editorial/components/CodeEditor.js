@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
 
+import axios from 'axios'
 
 //  React Router Dom
 import { Link, useNavigate } from 'react-router-dom';
+
+
 
 // import Components
 import { Loading } from '../../Shared/components/Loading'
@@ -12,7 +15,7 @@ import { Loading } from '../../Shared/components/Loading'
 import { AuthContext } from '../../Shared/context/auth-context'
 
 // Backend API
-import { writeEditorialAPI } from '../../Shared/API/api'
+// import { writeEditorialAPI } from '../../Shared/API/api'
 
 // import CSS
 import './WriteEditorial.css'
@@ -95,7 +98,29 @@ export const CodeEditor = () => {
                     let name = title
                     let problemTags = tags
                     let difficultyLevel = rating
-                    const response = await writeEditorialAPI(
+                    // const response = await writeEditorialAPI(
+                    //     problemLink,
+                    //     name,
+                    //     contestId,
+                    //     problemTags,
+                    //     difficultyLevel,
+                    //     editorialDesc,
+                    //     editorialCode,
+                    //     programmingLanguage,
+                    //     index
+                    // )
+
+
+                    // const data = await response.json()
+
+                    const config = {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                        }
+                    }
+
+                    const { data } = await axios.post('https://sanidhya-codifica.herokuapp.com/user/write/editorial', {
                         problemLink,
                         name,
                         contestId,
@@ -105,11 +130,9 @@ export const CodeEditor = () => {
                         editorialCode,
                         programmingLanguage,
                         index
-                    )
+                    }, config)
 
-
-                    const data = await response.json()
-
+                    // console.log(data)
                     if (data['status'] === 'OK') {
 
                         // success editorial saved 
@@ -133,7 +156,7 @@ export const CodeEditor = () => {
         catch (e) {
 
             setIsLoading(false)
-            console.log(e);
+            // console.log(e);
         }
     }
 
@@ -145,6 +168,7 @@ export const CodeEditor = () => {
             const handle = authData.cFHandle
             const response = await fetch(`https://codeforces.com/api/user.status?handle=${handle}`)
             const data = await response.json()
+
 
             if (data['status'] === 'OK') {
                 const result = data['result']

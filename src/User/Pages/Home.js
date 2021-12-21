@@ -14,10 +14,12 @@ import { Link } from 'react-router-dom';
 import { FaLaptopCode } from 'react-icons/fa'
 import { SiPython, SiJava, SiCplusplus } from 'react-icons/si'
 
-
+// import { isLoggedInAPI } from '../../Shared/API/api';
 export const Home = () => {
 
     const { isLoggedIn, cFHandle, loading } = useContext(AuthContext)
+    // console.log(isLoggedIn);
+
 
     if (loading) {
         return (

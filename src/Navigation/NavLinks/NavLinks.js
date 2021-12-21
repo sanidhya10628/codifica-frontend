@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 
+// import axios from 'axios'
+
 // Import CSS
 import './NavLinks.css'
 
@@ -13,7 +15,7 @@ import { HiPencilAlt } from 'react-icons/hi'
 import { BsFillFileCodeFill } from 'react-icons/bs'
 
 // Import Components
-import { Logout } from '../../Shared/API/api'
+// import { Logout } from '../../Shared/API/api'
 import { AuthContext } from '../../Shared/context/auth-context'
 
 
@@ -35,9 +37,30 @@ export const NavLinks = ({ setIsSideBarOpen }) => {
     const handleLogout = async () => {
         try {
             setIsSideBarOpen(false)
-            const res = await Logout()
-            const data = await res.json()
+            // const res = await Logout()
+            // const data = await res.json()
+            // const config = {
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         Authorization: `Bearer ${localStorage.getItem('token')}`
+            //     }
+            // }
+            // const { data } = await axios.post('https://sanidhya-codifica.herokuapp.com/logout', {
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         Authorization: `Bearer ${localStorage.getItem('token')}`
+            //     }
+            // })
 
+            const response = await fetch('https://sanidhya-codifica.herokuapp.com/logout', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+
+            const data = await response.json()
             // console.log(data)
             if (data['status'] === 'OK') {
 
@@ -50,13 +73,15 @@ export const NavLinks = ({ setIsSideBarOpen }) => {
                 navigate('/', { replace: true })
 
             } else {
-
+                setIsLoggedIn(false)
                 localStorage.removeItem('token')
                 alert(data.msg)
                 navigate('/', { replace: true })
             }
 
         } catch (e) {
+            setIsLoggedIn(false)
+
             console.log(e);
             localStorage.removeItem('token')
             navigate('/', { replace: true })

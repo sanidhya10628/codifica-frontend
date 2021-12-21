@@ -1,26 +1,34 @@
 import React, { createContext, useState, useEffect } from "react";
 
-import { isLoggedInAPI } from '../API/api'
+import axios from 'axios'
+
+// import { isLoggedInAPI } from '../API/api'
 import { Loading } from '../components/Loading'
 
 const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(undefined)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [email, setEmail] = useState('')
     const [cFHandle, setCFHandle] = useState('')
 
     const [loading, setLoading] = useState(true)
 
     const getIsLoggedIn = async () => {
-        const response = await isLoggedInAPI()
-        const data = await response.json()
+        // const response = await isLoggedInAPI()
+        // const data = await response.json()
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }
+        const { data } = await axios.get('https://sanidhya-codifica.herokuapp.com/isLoggedIn', config)
         if (data['status'] === 'OK') {
             setCFHandle(data.user.codeforcesHandle)
             setEmail(data.user.email)
         }
         setIsLoggedIn(data.isLoggedIn)
-
         setLoading(false)
     }
 

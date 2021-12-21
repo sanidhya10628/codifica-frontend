@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react';
 
+import axios from 'axios'
+
 // Material UI
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,8 +13,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Import Components
 import { Loading } from '../../Shared/components/Loading';
-import { LoginIn } from '../../Shared/API/api'
 import { AuthContext } from '../../Shared/context/auth-context';
+// import { LoginIn } from '../../Shared/API/api'
 
 // React Router Dom
 import { useNavigate } from 'react-router-dom';
@@ -42,20 +44,28 @@ export const Login = () => {
             if (email && password) {
                 setEmail(Formdata.get('email'))
                 setPassword(Formdata.get('password'))
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+                // const response = await LoginIn(email, password)
+                // const data = await response.json()
 
-                const response = await LoginIn(email, password)
-                const data = await response.json()
-
+                const { data } = await axios.post('https://sanidhya-codifica.herokuapp.com/login', {
+                    email, password
+                }, config)
+                // console.log(data)
                 if (data['status'] === 'OK') {
-                    localStorage.setItem('token', `Bearer ${data.token}`)
-                    setIsLoggedIn(true)
-                    setIsLoading(false)
+                    localStorage.setItem('token', data.token)
 
+                    authData.setIsLoggedIn(true)
                     authData.setEmail(data.user.email)
                     authData.setCFHandle(data.user.codeforcesHandle)
+                    setIsLoading(false)
 
                     // navigate user to home page
-                    navigate('/', { replace: true })
+                    navigate('/')
 
                 } else {
                     // Loading set false
