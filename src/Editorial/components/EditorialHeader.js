@@ -15,10 +15,9 @@ export const EditorialHeader = ({ editorial }) => {
     return (
         <Box
             sx={{
-                bgcolor: '#85ffbd',
-                background: '#74EBD5',
-                pt: 8,
-                pb: 6,
+                bgcolor: 'white',
+                pt: 0,
+                pb: 0,
             }}
         >
             <Container maxWidth="sm">

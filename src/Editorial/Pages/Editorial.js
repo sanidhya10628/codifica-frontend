@@ -209,7 +209,7 @@ export const Editorial = () => {
             {/* <CssBaseline /> */}
             <main>
                 {/* Hero unit */}
-                <EditorialHeader editorial={editorial} />
+                {/* <EditorialHeader editorial={editorial} /> */}
                 {/* End of Hero Unit */}
 
                 {
@@ -222,7 +222,7 @@ export const Editorial = () => {
                                         sx={{
                                             height: '100%', display: 'flex', flexDirection: 'column',
                                             color: 'black',
-                                            background: '#85ffbd',
+                                            background: 'white',
 
                                         }}
                                     >

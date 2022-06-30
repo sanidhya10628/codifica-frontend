@@ -41,7 +41,6 @@ export const CardComponent = ({ editorialList }) => {
                                     sx={{
                                         height: '100%', display: 'flex', flexDirection: 'column',
                                         color: 'black',
-                                        backgroundImage: 'linear-gradient(45deg, #85ffbd 98%, #ffffff 99%)'
                                     }}
                                 >
 
