@@ -12,6 +12,7 @@ import { Navbar } from './Navigation/Navbar'
 import { Login } from './User/components/Login'
 import { SignUp } from './User/components/SignUp'
 import { ForgotPassword } from './User/components/ForgotPassword';
+import { ResetPassword } from './User/components/ResetPassword';
 import { WriteEditorial } from './Editorial/Pages/WriteEditorial'
 import { EditorialList } from './Editorial/Pages/EditorialList';
 import { Editorial } from './Editorial/Pages/Editorial'
@@ -33,6 +34,7 @@ function App() {
           <Route path='/editorials' element={<EditorialList />} />
           <Route path='/myeditorials' element={<MyEditorials />} />
           <Route path='/editorial/:id' element={<Editorial />} />
+          <Route path='reset-password/:id/:token' element={<ResetPassword />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Router>

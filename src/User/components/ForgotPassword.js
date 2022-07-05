@@ -9,7 +9,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+// Import Axios
+import axios from 'axios'
 
+// Import Componenets
+import { Loading } from '../../Shared/components/Loading';
 
 // React Router Dom
 import { Link } from 'react-router-dom'
@@ -18,19 +22,55 @@ const theme = createTheme();
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState('')
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+    const handleSubmit = async (event) => {
+        setIsLoading(true);
+        try {
 
-        if (email) {
-            setEmail(data.get('email'))
-        }
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
 
-        else {
-            // alert Email and password can not be empty
+            if (email) {
+                setEmail(formData.get('email'))
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+
+                const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/forgot-password`, {
+                    email
+                }, config)
+
+
+                if (data.status === 'OK') {
+                    alert(data.msg);
+                    setIsLoading(false);
+                    setEmail('')
+                } else {
+                    alert(data.msg);
+                    setIsLoading(false);
+                }
+            }
+
+            else {
+                // alert Email can not be empty
+                alert('Email Cannot be empty');
+                setIsLoading(false);
+            }
+        } catch (error) {
+
+            alert(error.message);
+            setIsLoading(false);
         }
     };
+
+    if (isLoading) {
+        return (
+            <Loading />
+        )
+    }
 
     return (
         <ThemeProvider theme={theme}>

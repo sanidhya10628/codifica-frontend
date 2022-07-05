@@ -1,5 +1,8 @@
 import React, { useState, useContext } from 'react';
 
+// Import Toast
+import { Toast } from '../../Shared/components/Toast';
+
 // Import CSS
 import './Login.css'
 
@@ -30,7 +33,7 @@ import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 const theme = createTheme();
 
 export const Login = () => {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
+    const { isLoggedIn, setIsLoggedIn, isShowToast, toastDetails, setToastDetails, } = useContext(AuthContext)
     const authData = useContext(AuthContext)
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
@@ -38,8 +41,6 @@ export const Login = () => {
     const [password, setPassword] = useState('')
 
     const [showPassword, setShowPassword] = useState(false)
-
-
 
     const handleSubmit = async (event) => {
         try {
@@ -78,7 +79,11 @@ export const Login = () => {
                     setIsLoggedIn(false)
 
                     // Show Alert
-                    alert(data.msg)
+                    alert('Invalid email or password')
+                    setToastDetails({
+                        isShowToast: true,
+                        toastType: 'error'
+                    })
 
                     // Loading set false
                     setIsLoading(false)
@@ -115,6 +120,7 @@ export const Login = () => {
     return (
 
         <ThemeProvider theme={theme}>
+            {/* {toastDetails.isShowToast && < Toast />} */}
 
             <Container component="main" maxWidth="xs" sx={{
                 background: 'white',

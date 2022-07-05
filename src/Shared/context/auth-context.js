@@ -11,9 +11,12 @@ export const AuthContextProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [email, setEmail] = useState('')
     const [cFHandle, setCFHandle] = useState('')
-
     const [loading, setLoading] = useState(true)
 
+    const [toastDetails, setToastDetails] = useState({
+        isShowToast: false,
+        toastType: 'error'
+    })
     const getIsLoggedIn = async () => {
         // const response = await isLoggedInAPI()
         // const data = await response.json()
@@ -47,7 +50,7 @@ export const AuthContextProvider = ({ children }) => {
             isLoggedIn, setIsLoggedIn,
             email, setEmail,
             cFHandle, setCFHandle,
-
+            toastDetails, setToastDetails
         }}>
             {children}
         </AuthContext.Provider>
