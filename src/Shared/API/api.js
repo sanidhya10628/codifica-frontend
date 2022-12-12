@@ -1,4 +1,4 @@
-const URL = 'https://sanidhya-codifica.herokuapp.com';
+const URL = 'https://sanidhya-codifica-server.onrender.com';
 
 const headers = {
     'Content-type': 'application/json',
